@@ -9,15 +9,17 @@ interface YelpSearchService {
     @GET("businesses/search")
     fun getFoodSearch (
         @Header("Authorization") authHeader: String,
-        @Query("term") searchTerm: String) : Call<Any>
+        @Query("categories") categories: String,
+        @Query("location") location: String): Call<YelpData> // YelpData Any
 
-//    @GET("businesses/search")
-//    fun getLocationSearch (
-//        @Header("Authorization") authHeader: String,
-//        @Query("location") location: String) : Call<Any>
-//
-//    @GET("businesses/search")
-//    fun getFoodLocation (
-//        @Header("Authorization") authHeader: String,
-//        @Query("categories") categories: String, @Query("location") location: String) : Call<Any>
+    @GET("businesses/search")
+    fun getLocationSearch (
+        @Header("Authorization") authHeader: String,
+        @Query("location") location: String) : Call<YelpData>
+
+    @GET("businesses/search")
+    fun getFoodLocation (
+        @Header("Authorization") authHeader: String,
+        @Query("categories") categories: String,
+        @Query("location") location: String) : Call<YelpData>
 }

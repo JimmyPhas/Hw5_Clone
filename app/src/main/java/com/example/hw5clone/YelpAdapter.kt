@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.row_item.view.*
 import com.squareup.picasso.Picasso
 
-class YelpAdapter (private val businesses: ArrayList<Yelp>) : RecyclerView.Adapter<YelpAdapter.MyViewHolder>() {
+class YelpAdapter (private val businesses: ArrayList<restaurants>) : RecyclerView.Adapter<YelpAdapter.MyViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.row_item, parent, false)
@@ -17,15 +17,18 @@ class YelpAdapter (private val businesses: ArrayList<Yelp>) : RecyclerView.Adapt
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val currentItem = businesses[position]
         holder.name.text = currentItem.name
-        holder.review_count.text = currentItem.review_count
+        holder.review_count.text = currentItem.reviewCount.toString()
         holder.rating.rating = currentItem.rating
-        holder.distance.text = currentItem.distance
-        holder.location.text = currentItem.location.address1
-        holder.searchterm.text = currentItem.searchterm
-//        holder.categories.text = currentItem.categories.toString()
+        holder.location.text = currentItem.location.address
+        holder.categories.text = currentItem.categories[0].title
         holder.price.text = currentItem.price
 
-        Picasso.get().load(currentItem.image_url.medium).into(holder.profileImage)
+        Picasso.get().load(currentItem.imageUrl).into(holder.profileImage)
+
+        val convert = currentItem.distance * 0.000621371
+        val miles = "%.2f".format(convert) + " mi"
+        holder.distance.text = miles
+
     }
 
     override fun getItemCount(): Int {
@@ -38,8 +41,8 @@ class YelpAdapter (private val businesses: ArrayList<Yelp>) : RecyclerView.Adapt
         val rating = itemView.tv_rating
         val distance = itemView.tv_distance
         val location = itemView.tv_address
-        val searchterm = itemView.tv_categories
         val price = itemView.tv_price
         val profileImage = itemView.image_profile
+        val categories = itemView.tv_categories
     }
 }
