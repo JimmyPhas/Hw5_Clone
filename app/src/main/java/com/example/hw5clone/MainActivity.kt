@@ -1,6 +1,7 @@
 package com.example.hw5clone
 
 import android.app.Activity
+import android.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -59,17 +60,16 @@ class MainActivity : AppCompatActivity() {
                         return
                     }
 
-                    Log.d(TAG, ": ${body.results.get(0).name}")
-                    Log.d(TAG, ": ${body.results.get(0).reviewCount}")
-                    Log.d(TAG, ": ${body.results.get(0).rating}")
-                    Log.d(TAG, ": ${body.results.get(0).distance}")
-                    Log.d(TAG, ": ${body.results.get(0).location.address}")
-                    Log.d(TAG, ": ${body.results.get(0).searchterm}")
-//                    Log.d(TAG, ": ${body.results.get(0).categories}")
-                    Log.d(TAG, ": ${body.results.get(0).price}")
-                    Log.d(TAG, ": ${body.results.get(0).imageUrl}")
+                    Log.d(TAG, ": ${body.businesses.get(0).name}")
+                    Log.d(TAG, ": ${body.businesses.get(0).reviewCount}")
+                    Log.d(TAG, ": ${body.businesses.get(0).rating}")
+                    Log.d(TAG, ": ${body.businesses.get(0).distance}")
+                    Log.d(TAG, ": ${body.businesses.get(0).location.address1}")
+                    Log.d(TAG, ": ${body.businesses.get(0).categories}")
+                    Log.d(TAG, ": ${body.businesses.get(0).price}")
+                    Log.d(TAG, ": ${body.businesses.get(0).image_url}")
 
-                    yelpList.addAll(body.results)
+                    yelpList.addAll(body.businesses)
                     adapter.notifyDataSetChanged()
                 }
             })
@@ -91,18 +91,16 @@ class MainActivity : AppCompatActivity() {
                         Log.w(TAG, "Valid response was not received")
                         return
                     }
+                    Log.d(TAG, ": ${body.businesses.get(0).name}")
+                    Log.d(TAG, ": ${body.businesses.get(0).reviewCount}")
+                    Log.d(TAG, ": ${body.businesses.get(0).rating}")
+                    Log.d(TAG, ": ${body.businesses.get(0).distance}")
+                    Log.d(TAG, ": ${body.businesses.get(0).location.address1}")
+                    Log.d(TAG, ": ${body.businesses.get(0).categories}")
+                    Log.d(TAG, ": ${body.businesses.get(0).price}")
+                    Log.d(TAG, ": ${body.businesses.get(0).image_url}")
 
-                    Log.d(TAG, ": ${body.results.get(0).name}")
-                    Log.d(TAG, ": ${body.results.get(0).reviewCount}")
-                    Log.d(TAG, ": ${body.results.get(0).rating}")
-                    Log.d(TAG, ": ${body.results.get(0).distance}")
-                    Log.d(TAG, ": ${body.results.get(0).location.address}")
-                    Log.d(TAG, ": ${body.results.get(0).searchterm}")
-//                    Log.d(TAG, ": ${body.results.get(0).categories}")
-                    Log.d(TAG, ": ${body.results.get(0).price}")
-                    Log.d(TAG, ": ${body.results.get(0).imageUrl}")
-
-                    yelpList.addAll(body.results)
+                    yelpList.addAll(body.businesses)
                     adapter.notifyDataSetChanged()
                 }
             })
@@ -126,26 +124,31 @@ class MainActivity : AppCompatActivity() {
                         return
                     }
 
-                    Log.d(TAG, ": ${body.results.get(0).name}")
-                    Log.d(TAG, ": ${body.results.get(0).reviewCount}")
-                    Log.d(TAG, ": ${body.results.get(0).rating}")
-                    Log.d(TAG, ": ${body.results.get(0).distance}")
-                    Log.d(TAG, ": ${body.results.get(0).location.address}")
-                    Log.d(TAG, ": ${body.results.get(0).searchterm}")
-//                    Log.d(TAG, ": ${body.results.get(0).categories}")
-                    Log.d(TAG, ": ${body.results.get(0).price}")
-                    Log.d(TAG, ": ${body.results.get(0).imageUrl}")
+                    Log.d(TAG, ": ${body.businesses.get(0).name}")
+                    Log.d(TAG, ": ${body.businesses.get(0).reviewCount}")
+                    Log.d(TAG, ": ${body.businesses.get(0).rating}")
+                    Log.d(TAG, ": ${body.businesses.get(0).distance}")
+                    Log.d(TAG, ": ${body.businesses.get(0).location.address1}")
+                    Log.d(TAG, ": ${body.businesses.get(0).categories}")
+                    Log.d(TAG, ": ${body.businesses.get(0).price}")
+                    Log.d(TAG, ": ${body.businesses.get(0).image_url}")
 
-                    yelpList.addAll(body.results)
+                    yelpList.addAll(body.businesses)
                     adapter.notifyDataSetChanged()
                 }
             })
 
         }
         else {
-            var toastMessage = Toast.makeText(this, "Please enter a Food Item or Location to search", Toast.LENGTH_LONG)
-            toastMessage.setGravity(Gravity.CENTER, 0, 0)
-            toastMessage.show()
+            val builder = AlertDialog.Builder(this)
+            builder.setTitle("Search Terms Missing")
+            builder.setMessage("Search term cannot be empty. \n\nnPlease enter a food catategory/item or a location.")
+            builder.setPositiveButton("OK") {
+                dialog, which ->
+            }
+            val dialog = builder.create()
+            dialog.show()
+
         }
 
         val inputMethodManager = getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager

@@ -19,11 +19,11 @@ class YelpAdapter (private val businesses: ArrayList<restaurants>) : RecyclerVie
         holder.name.text = currentItem.name
         holder.review_count.text = currentItem.reviewCount.toString()
         holder.rating.rating = currentItem.rating
-        holder.location.text = currentItem.location.address
+        holder.location.text = currentItem.location.address1
         holder.categories.text = currentItem.categories[0].title
         holder.price.text = currentItem.price
 
-        Picasso.get().load(currentItem.imageUrl).into(holder.profileImage)
+        Picasso.get().load(currentItem.image_url).into(holder.profileImage)
 
         val convert = currentItem.distance * 0.000621371
         val miles = "%.2f".format(convert) + " mi"
